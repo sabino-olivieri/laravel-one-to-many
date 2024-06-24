@@ -60,6 +60,10 @@
                   <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i> Dashboard
                 </a>
               </li>
+
+            </ul>
+            <h6 class="text-white mt-4">Progetti</h6>
+            <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link text-white rounded-2 {{ Request::route()->getName() == 'admin.project.index' ? 'bg-primary' : ''}}"
                   href="{{ route('admin.project.index') }}">
@@ -74,6 +78,20 @@
               </li>
             </ul>
 
+            <hr class="text-white">
+
+            <h6 class="text-white mt-4">Tipi</h6>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link text-white rounded-2 {{ Request::route()->getName() == 'admin.type.create' ? 'bg-primary' : ''}}"
+                  href="{{ route('admin.type.create') }}">
+                  <i class="fa-solid fa-square-plus"></i> Aggiungi Tipi
+                </a>
+              </li>
+            </ul>
+            
+            <hr class="text-white">
+            
 
           </div>
         </nav>
