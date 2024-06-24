@@ -22,6 +22,9 @@
             <div class="col-12 col-md-6">
                 <ul class="list-unstyled">
                     <li class="mb-3">
+                        <strong>Tipo: </strong> {{ $project->type_id }}
+                    </li>
+                    <li class="mb-3">
                         <strong>Data inizio progetto:</strong> {{ $project->start_date }}
                     </li>
                     <li class="mb-3">

@@ -23,17 +23,7 @@ class ProjectController extends Controller
         $projectList = Project::orderBy('finish_date', 'desc')->get();
 
         foreach ($projectList as $project) {
-            if(!is_null($project->start_date)) {
-                $project->start_date = date_format(new DateTime($project->start_date), 'd/m/y');
-            } else {
-                $project->start_date = 'N/D';
-            }
-
-            if(!is_null($project->finish_date)) {
-                $project->finish_date = date_format(new DateTime($project->finish_date), 'd/m/y');
-            } else {
-                $project->finish_date = 'N/D';
-            }
+            $project = ProjectController::formatData($project);
         }
         return view('admin.projects.index', compact('projectList'));
     }
@@ -65,14 +55,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {   
-        
-        if(!is_null($project->start_date)) {
-            $project->start_date = date_format(new DateTime($project->start_date), 'd/m/y');
-            $project->finish_date = date_format(new DateTime($project->finish_date), 'd/m/y');
-        } else {
-            $project->start_date = 'N/D';
-            $project->finish_date = 'N/D';
-        }
+        $project = ProjectController::formatData($project);
 
         return view('admin.projects.show', compact('project'));
     }
@@ -82,7 +65,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $typeList = Type::all();
+        return view('admin.projects.edit', compact('project', 'typeList'));
     }
 
     /**
@@ -90,8 +74,7 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        $request->validate(['title' => Rule::unique('projects')->ignore($project->id)],
-                            ['title.unique' => 'Esiste già un progetto con lo stesso titolo',]);
+        
         if($request->image){
             Storage::delete($project->image);
         }
@@ -113,5 +96,27 @@ class ProjectController extends Controller
         }
         $project->delete();
         return redirect()->route('admin.project.index')->with('message', 'Progetto '.$project->title.' eliminato corrattamente');
+    }
+
+    protected function formatData(Project $project) {
+        if(!is_null($project->start_date)) {
+            $project->start_date = date_format(new DateTime($project->start_date), 'd/m/y');
+        } else {
+            $project->start_date = 'N/D';
+        }
+
+        if(!is_null($project->finish_date)) {
+            $project->finish_date = date_format(new DateTime($project->finish_date), 'd/m/y');
+        } else {
+            $project->finish_date = 'N/D';
+        }
+
+        if(!is_null($project->type_id)) {
+            $project->type_id = $project->type->name;
+        } else {
+            $project->type_id = 'N/D';
+        }
+
+        return $project;
     }
 }

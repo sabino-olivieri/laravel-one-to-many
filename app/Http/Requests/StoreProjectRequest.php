@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Type;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProjectRequest extends FormRequest
@@ -21,9 +22,10 @@ class StoreProjectRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
             'title' => 'required|min:5|unique:projects,title',
-            'type_id' =>'nullable',
+            'type_id' =>'nullable|exists:types,id',
             'description' => 'nullable|min:10',
             'image' => 'required|image|mimes:png,jpg,jpeg',
             'site_url' => 'nullable|active_url',
@@ -38,6 +40,7 @@ class StoreProjectRequest extends FormRequest
             'title.required' => 'Il titolo è obbligatorio',
             'title.min' => 'Il titolo deve contenere almeno 5 caratteri',
             'title.unique' => 'Esiste già un progetto con lo stesso titolo',
+            'type_id.exists' => 'Inserire un tipo corretto',
             'description.min' => 'La descrizione deve contenere almeno 10 caratteri',
             'image.required' => "I'immagine è obbligatoria",
             'image.image' => "Inserire un immagine valida",

@@ -22,7 +22,7 @@
                     @foreach ($projectList as $project)
                     <tr>
                         <td class="align-middle"><img src="{{asset('storage/'.$project->image)}}" alt=""></td>
-                        <td class="align-middle fw-bolder">{{$project->type ? $project->type->name : 'N/D'}}</th>
+                        <td class="align-middle fw-bolder">{{$project->type_id}}</th>
                         <td class="align-middle fw-bolder">{{$project->title}}</th>
                         <td class="site align-middle""><a href="{{$project->site_url}}" target="blank">{{$project->site_url}}</a></td>
                         <td class="align-middle">{{$project->start_date}}</td> 

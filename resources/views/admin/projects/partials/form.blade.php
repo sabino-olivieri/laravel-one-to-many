@@ -21,9 +21,14 @@
 
     <div class="form-floating mb-3">
         <select class="form-select ms_form-control" id="type_id" aria-label="Seleziona il tipo di progetto" name="type_id">
-            <option selected value="">Seleziona</option>
+            <option value="">Seleziona</option>
             @foreach ($typeList as $type)                
-                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                <option value="{{ $type->id }}"
+                    @if (Request::route()->getName() === 'admin.project.edit')
+                        @selected($type->id == $project->type_id)
+                    @endif>
+                    {{ $type->name }}
+                </option>
             @endforeach
 
         </select>
