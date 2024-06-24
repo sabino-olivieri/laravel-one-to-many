@@ -1,0 +1,37 @@
+.ms_form-control {
+    background-color: transparent;
+    color: white;
+
+    &:focus {
+        background-color: transparent;
+        color: white;
+    }
+}
+
+.form-floating > .ms_form-control {
+
+    &:focus ~ label {
+        color: white;
+        font-style: italic;
+    }
+}
+
+.form-floating > .ms_form-control:focus ~ label::after {
+    background-color: transparent;
+}
+.form-floating > .ms_form-control:not(:placeholder-shown) ~ label::after {
+    background-color: transparent;
+    color: white;
+}
+
+.form-floating > .ms_form-control:not(:placeholder-shown) ~ label {
+    color: white;
+    font-style: italic;
+}
+
+.form-floating {
+    #floatingTextarea {
+        height: 100px;
+    }
+}
+
