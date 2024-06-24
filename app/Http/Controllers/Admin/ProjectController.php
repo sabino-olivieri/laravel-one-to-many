@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use App\Models\Type;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -41,8 +42,9 @@ class ProjectController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('admin.projects.create');
+    {   
+        $typeList = Type::all();
+        return view('admin.projects.create', compact('typeList'));
     }
 
     /**
